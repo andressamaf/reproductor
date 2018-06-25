@@ -1,0 +1,40 @@
+<div class="" *ngIf="identity&& identity.role=='ROLE_ADMIN'" >
+	<h1>{{titulo}}</h1>
+	<div *ngIf="alertMessage" class="col-lg-9 row">
+		<div class="alert alert-dismissible alert-info">
+		  <button type="button" class="close" data-dismiss="alert">&times;</button>
+		  <strong>Atenci&oacute;n!</strong> {{alertMessage}}
+		</div>
+	</div>
+	<form #formArtist="ngForm" (ngSubmit)="onSubmit()">
+		<p class="col-lg-9 row">
+			<label class="form-label col-lg-2">Nombre</label>
+			<input type="text" class="form-control col-lg-5" name="name" #name="ngModel" [(ngModel)]="artist.name" required>
+			<span *ngIf="!name.valid&&name.touched" class="col-lg-2">El nombre es obligatorio</span>
+		</p>
+		<p class="col-lg-9 row">
+			<label class="form-label col-lg-2">Descripci&oacute;n</label>
+			<textarea name="description" class="form-control col-lg-5" #description="ngModel" [(ngModel)]="artist.description" required></textarea>
+			<span *ngIf="!description.valid&&description.touched" class="col-lg-3">La descripci&oacute;n es obligatoria</span>
+		</p>
+		<div *ngIf="is_edit" class="col-lg-9 row">
+			<div class="artist_image_for_edit" *ngIf="artist.image && artist.image != 'null'">
+				<img src="{{url+'getImageArtist/'+artist.image}}" class="" />
+			</div>	
+
+			<p>
+				<label class="form-label">Sube la imagen del artista</label>
+				<input type="file" placeholder="Subir imagen..." (change)="fileChangeEvent($event)" />	
+			</p>
+			
+		</div>
+		<p class="col-lg-9 row">
+			<input type="submit" value="{{titulo}}" [disabled]="!formArtist.form.valid" class="btn btn-success">	
+		</p>
+		
+	</form>
+</div>
+<div class="" *ngIf="!identity || identity.role !='ROLE_ADMIN'" >
+	<h1>ERROR</h1>
+	<p>No tienes acceso a esta secci&oacute;n de la aplicaci&oacute;n</p>	
+</div>

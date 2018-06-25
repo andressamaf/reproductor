@@ -1,0 +1,38 @@
+<h1> {{titulo}} </h1>
+<div *ngIf="alertMessage" class="col-lg-9 row">
+	<div class="alert alert-dismissible alert-info">
+	  <button type="button" class="close" data-dismiss="alert">&times;</button>
+	  <strong>Atenci&oacute;n!</strong> {{alertMessage}}
+	</div>
+</div>
+<form #formAlbum="ngForm" (ngSubmit)="onSubmit()" >
+	<p class="col-lg-9 row">
+		<label class="form-label col-lg-2">T&iacute;tulo</label>
+		<input type="text" class="form-control col-lg-5" name="title" #title="ngModel" [(ngModel)]="album.title" required>
+		<span *ngIf="!title.valid && title.touched" class="col-lg-2">El t&iacute;tulo es obligatorio</span>
+	</p>
+	<p class="col-lg-9 row">
+		<label class="form-label col-lg-2">Descripci&oacute;n</label>
+		<textarea name="description" class="form-control col-lg-5" #description="ngModel" [(ngModel)]="album.description" required></textarea>
+		<span *ngIf="!description.valid && description.touched" class="col-lg-3">La descripci&oacute;n es obligatoria</span>
+	</p>
+	<p class="col-lg-9 row">
+		<label class="form-label col-lg-2">A&ntilde;o</label>
+		<input type="text" class="form-control col-lg-5" name="year" #year="ngModel" [(ngModel)]="album.year" required>
+		<span *ngIf="!year.valid && year.touched" class="col-lg-2">El a&ntilde;o es obligatorio</span>
+	</p>
+	<div *ngIf="is_edit" class="col-lg-9 row">
+		<div class="album_image_for_edit" *ngIf="album.image && album.image != 'null'">
+			<img src="{{url+'getImageAlbum/'+album.image}}" />
+		</div>	
+
+		<p>
+			<label class="form-label">Sube la imagen del &aacute;lbum</label>
+			<input type="file" placeholder="Subir imagen..." (change)="fileChangeEvent($event)" />	
+		</p>
+		
+	</div>
+	<p class="col-lg-9 row">
+		<input type="submit" value="{{titulo}}" [disabled]="!formAlbum.form.valid" class="btn btn-success">	
+	</p>
+</form>

@@ -2,19 +2,54 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
+import {routing, appRoutingProviders} from './app.routing';
 import { AppComponent } from './app.component';
+
+//User components
+import { UserEditComponent } from './components/user-edit.component';
+import { ArtistListComponent } from './components/artist-list.component';
+import { HomeComponent } from './components/home.component';
+
+//Artist components
+import { ArtistAddComponent } from './components/artist-add.component';
+import { ArtistEditComponent } from './components/artist-edit.component';
+import { ArtistDetailComponent } from './components/artist-show.component';
+
+//Album components
+import { AlbumAddComponent } from './components/album-add.component';
+import { AlbumEditComponent } from './components/album-edit.component';
+import { AlbumDetailComponent } from './components/album-detail.component';
+
+//Song components
+import { SongAddComponent } from './components/song-add.component';
+import { SongEditComponent } from './components/song-edit.component';
+
+//Player component
+import { PlayerComponent } from './components/player.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UserEditComponent,
+    ArtistListComponent,
+    HomeComponent,
+    ArtistAddComponent,
+    ArtistEditComponent,
+    ArtistDetailComponent,
+    AlbumAddComponent,
+    AlbumEditComponent,
+    AlbumDetailComponent,
+    SongAddComponent,
+    SongEditComponent,
+    PlayerComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    routing
   ],
-  providers: [],
+  providers: [appRoutingProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,43 @@
+<div *ngIf="identity && identity.role=='ROLE_ADMIN'">
+	<h1>{{titulo}}</h1>
+	<div *ngIf="alertMessage" class="col-lg-9 row">
+		<div class="alert alert-dismissible alert-info">
+		  <button type="button" class="close" data-dismiss="alert">&times;</button>
+		  <strong>Atenci&oacute;n!</strong> {{alertMessage}}
+		</div>
+	</div>
+	<form #formSong="ngForm" (ngSubmit)="onSubmit()" >
+		<p class="col-lg-9 row">
+			<label class="form-label col-lg-2">T&iacute;tulo</label>
+			<input type="text" class="form-control col-lg-5" name="name" #name="ngModel" [(ngModel)]="song.name" required>
+			<span *ngIf="!name.valid && name.touched" class="col-lg-2">El t&iacute;tulo de la canci&oacute;n es obligatoria</span>
+		</p>
+		<p class="col-lg-9 row">
+			<label class="form-label col-lg-2">Duraci&oacute;n</label>
+			<input name="duration" class="form-control col-lg-5" #duration="ngModel" [(ngModel)]="song.duration" required />
+			<span *ngIf="!duration.valid && duration.touched" class="col-lg-3">La duraci&oacute;n es obligatoria</span>
+		</p>
+		<p class="col-lg-9 row">
+			<label class="form-label col-lg-2">N&uacute;mero</label>
+			<input type="number" class="form-control col-lg-5" name="number" #number="ngModel" [(ngModel)]="song.number" required min="1">
+			<span *ngIf="!number.valid && number.touched" class="col-lg-2">El n&uacute;mero de canci&oacute;n es obligatorio</span>
+		</p>
+		<div *ngIf="is_edit" class="col-lg-9 row">
+			<div class="song_file_for_edit" *ngIf="song.file && song.file != 'null'">
+				<audio controls>
+					<source src="{{url+'getSongFile/'+song.file}}" type="audio/mpeg">
+						El navegador no soporta la reproducci&oacute;n del audio.
+				</audio>
+			</div>	
+
+			<p>
+				<label class="form-label">Sube el mp3 de la canci&oacute; de la canci&oacute;n</label>
+				<input type="file" placeholder="Subir canción..." (change)="fileChangeEvent($event)" />	
+			</p>
+			
+		</div>
+		<p class="col-lg-9 row">
+			<input type="submit" value="{{titulo}}" [disabled]="!formSong.form.valid" class="btn btn-success">	
+		</p>
+	</form>	
+</div>
